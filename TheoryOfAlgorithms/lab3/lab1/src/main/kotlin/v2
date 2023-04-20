@@ -1,0 +1,73 @@
+class State(private val name: String) {
+    val transitions = mutableMapOf<String, State>() // переходы в другие состояния
+
+    override fun toString(): String {
+        return name
+    }
+}
+
+fun epsilonClosure(states: Set<State>): Set<State> {
+    val closure = mutableSetOf<State>()
+    val stack = ArrayDeque(states)
+    while (stack.isNotEmpty()) {
+        val state = stack.removeLast()
+        closure.add(state)
+        val epsilonTransitions = state.transitions["e"]
+        if (epsilonTransitions != null && epsilonTransitions !in closure) {
+            stack.addLast(epsilonTransitions)
+        }
+    }
+    return closure
+}
+
+fun nfaToDfa(q0: State): State {
+    val start = epsilonClosure(setOf(q0))
+    val states = mutableSetOf(start)
+    val dfaStates = mutableMapOf(start to State(start.joinToString()))
+    val unmarked = mutableSetOf(start)
+    while (unmarked.isNotEmpty()) {
+        val t = unmarked.first()
+        unmarked.remove(t)
+        val state = dfaStates[t]!!
+        for (symbol in setOf("a", "b")) {
+            val transitions = mutableSetOf<State>()
+            for (nfaState in t) {
+                val transition = nfaState.transitions[symbol]
+                if (transition != null) {
+                    transitions.add(transition)
+                }
+            }
+            if (transitions.isNotEmpty()) {
+                val closure = epsilonClosure(transitions)
+                if (closure !in states) {
+                    states.add(closure)
+                    unmarked.add(closure)
+                    dfaStates[closure] = State(closure.joinToString())
+                }
+                val newState = dfaStates[closure]!!
+                state.transitions[symbol] = newState
+            }
+        }
+    }
+    for ((key, value) in dfaStates) {
+        println("$key -> $value")
+    }
+    return dfaStates[start]!!
+}
+
+
+fun main() {
+    val q0 = State("q0")
+    val q1 = State("q1")
+    val q2 = State("q2")
+
+    q0.transitions["e"] = q1
+    q0.transitions["b"] = q2
+    q1.transitions["a"] = q0
+    q1.transitions["b"] = q1
+    q1.transitions["a"] = q2
+    q2.transitions["e"] = q1
+
+    val dfa = nfaToDfa(q0)
+    println(dfa.transitions)
+}

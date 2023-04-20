@@ -1,0 +1,19 @@
+< THE SYMBOL TABLE >  3_sample.exe_  --  emu8086 assembler version: 4.08 
+===================================================================================================
+Name                     	Offset    	Size      	Type      	Segment   
+===================================================================================================
+DATA                     	00000     	-5        	SEGMENT   	(ITSELF)  
+NB                       	00000     	1         	VAR       	data      
+CNT                      	00002     	1         	VAR       	data      
+CODE                     	00001     	-5        	SEGMENT   	(ITSELF)  
+START                    	00000     	-1        	LABEL     	code      
+BEG                      	00013     	-1        	LABEL     	code      
+COUNT_LOOP               	00016     	-1        	LABEL     	code      
+COUNT                    	00020     	-1        	LABEL     	code      
+COUNT2                   	0002E     	-1        	LABEL     	code      
+NOT_COUNT                	0003A     	-1        	LABEL     	code      
+QUIT                     	0004A     	-1        	LABEL     	code      
+===================================================================================================
+[ 10.04.2023  --  13:30:27 ] 
+< END >
+ 

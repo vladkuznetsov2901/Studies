@@ -1,0 +1,4 @@
+flat assembler  version 1.64
+D:\Studies\Assembler\emu8086\MyBuild\noname.exe_.~asm [33]:
+library msvcrt, 'msvcrt.dll'
+error: illegal instruction.

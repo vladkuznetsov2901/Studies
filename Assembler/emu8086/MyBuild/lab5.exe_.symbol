@@ -1,0 +1,20 @@
+< THE SYMBOL TABLE >  lab5.exe_  --  emu8086 assembler version: 4.08 
+===================================================================================================
+Name                     	Offset    	Size      	Type      	Segment   
+===================================================================================================
+DATA                     	00000     	-5        	SEGMENT   	(ITSELF)  
+X                        	00000     	1         	VAR       	data      
+STR                      	00001     	1         	VAR       	data      
+VVOD                     	00004     	1         	VAR       	data      
+MESS1                    	0006A     	1         	VAR       	data      
+CODE                     	00008     	-5        	SEGMENT   	(ITSELF)  
+START                    	00000     	-1        	LABEL     	code      
+BEGIN                    	0002E     	-1        	LABEL     	code      
+OT                       	00040     	-1        	LABEL     	code      
+FIRST                    	00044     	-1        	LABEL     	code      
+NO                       	0004E     	-1        	LABEL     	code      
+QUIT                     	00056     	-1        	LABEL     	code      
+===================================================================================================
+[ 17.04.2023  --  12:29:34 ] 
+< END >
+ 

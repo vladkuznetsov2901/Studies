@@ -1,0 +1,59 @@
+EMU8086 GENERATED LISTING. MACHINE CODE <- SOURCE.
+ 
+3_sample.com_ -- emu8086 assembler version: 4.08  
+ 
+[ 09.04.2023  --  23:12:32 ] 
+ 
+===================================================================================================
+[LINE]     LOC: MACHINE CODE                          SOURCE
+===================================================================================================
+ 
+[   1]        :                                       
+[   2]        :                                       
+[   3]        :                                       org 100h
+[   4]        :                                       
+[   5]        :                                       data segment
+[   6]    0100: AA F0 0F CC FF 00 55 AA 33 CC         vector db 10101010b, 11110000b, 00001111b, 11001100b, 11111111b, 00000000b, 01010101b, 10101010b, 00110011b, 11001100b
+[   7]    010A: 00                                    cnt db 0
+[   8]        :                                       data ends
+[   9]        :                                       
+[  10]        :                                       code segment
+[  11]        :                                       assume cs: code. ds:data
+[  12]        :                                       
+[  13]        :                                       
+[  14]    0110: BB 00 00                              mov bx, 0     ; bx is an index
+[  15]    0113: B9 0A 00                              mov cx, 10    ; number of elements
+[  16]        :                                       
+[  17]    0116:                                       next:
+[  18]    0116: 8A 07                                 mov al, vector[bx]   ; load byte
+[  19]    0118: B2 00                                 mov dl, 0            ; reset bit position
+[  20]    011A:                                       bit_loop:
+[  21]    011A: A8 01                                 test al, 1         ; check if bit is set
+[  22]    011C: 74 02                                 jz skip           ; jump if not set
+[  23]    011E: B4 01                                 mov ah, 1         ; set flag to increment counter
+[  24]    0120:                                       skip:
+[  25]    0120: D0 E8                                 shr al, 1          ; next bit
+[  26]    0122: FE C2                                 inc dl             ; increment bit position
+[  27]    0124: 80 FA 08                              cmp dl, 8          ; check if we have checked all bits
+[  28]    0127: 75 F1                                 jne bit_loop       ; if not, go to next bit
+[  29]    0129: 80 FC 01                              cmp ah, 1            ; check if we found a bit at a multiple of 3
+[  30]    012C: 75 04                                 jne next_byte        ; if not, go to next byte
+[  31]    012E: FE 06 0A 00                           inc cnt              ; increment counter
+[  32]    0132:                                       next_byte:
+[  33]    0132: 43                                    inc bx               ; next byte
+[  34]    0133: E2 E1                                 loop next            ; loop until cx=0
+[  35]        :                                       
+[  36]    0135: B4 00                                 mov ah, 0
+[  37]    0137: CD 16                                 int 16h
+[  38]        :                                       code ends
+[  39]    0139: C3                                    ret
+[  40]        :                                       
+[  41]        :                                       
+ 
+===================================================================================================
+ 
+
+
+
+
+===================================================================================================

@@ -1,0 +1,184 @@
+EMU8086 GENERATED LISTING. MACHINE CODE <- SOURCE.
+ 
+noname.com_ -- emu8086 assembler version: 4.08  
+ 
+[ 17.04.2023  --  12:51:47 ] 
+ 
+===================================================================================================
+[LINE]     LOC: MACHINE CODE                          SOURCE
+===================================================================================================
+ 
+[   1]        :                                       
+[   2]        :                                       ; You may customize this and other start-up templates;
+[   3]        :                                       ; The location of this template is c:\emu8086\inc\0_com_template.txt
+[   4]        :                                       
+[   5]        :                                       org 100h
+[   6]        :                                       
+[   7]        :                                       data segment
+[   8]        :                                       
+[   9]    0100: 56 76 6F 64 20 31 20 73 74 72 6F 6B   prompt1 db 'Vvod 1 stroki: ',13,10,'$'
+                69 3A 20 0D 0A 24                   
+[  10]    0112: 0D 0A 56 76 6F 64 20 32 20 73 74 72   prompt2 db 13,10,'Vvod 2 stroki: '
+                6F 6B 69 3A 20                      
+[  11]    0123: 0D 0A 24                              crlf db 13,10,'$' ; str s perevodom stroki
+[  12]    0126: 0D 0A 4E 65 20 73 6F 64 65 72 7A 68   txtno db 13,10,'Ne soderzhitsya podstroka$'
+                69 74 73 79 61 20 70 6F 64 73 74 72 
+                6F 6B 61 24                         
+[  13]    0142: 53 6F 64 65 72 7A 68 69 74 73 79 61   txtyes db 'Soderzhitsya podstroka raz $'
+                20 70 6F 64 73 74 72 6F 6B 61 20 72 
+                61 7A 20 24                         
+[  14]    015E: FF 00                                 buf1 db 255,? ;  dlya strok
+[  15]    0160: 00 00 00 00 00 00 00 00 00 00 00 00   str1 db 255 dup (?) ; pereminie dlya hranenia strok
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00                            
+[  16]        :                                       
+[  17]    025F: FF 00                                 buf2 db 255,? ; buferi dlya strok
+[  18]    0261: 00 00 00 00 00 00 00 00 00 00 00 00   str2 db 255 dup (?) ; pereminie dlya hranenia strok
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00                            
+[  19]        :                                       
+[  20]        :                                       
+[  21]        :                                       data ends
+[  22]        :                                       
+[  23]        :                                       code segment
+[  24]        :                                       assume cs:code,ds:data
+[  25]        :                                       
+[  26]        :                                       ; podprogramma podscheta count vhozdenii
+[  27]        :                                       ; podstroki [si] v stroku [di]
+[  28]        :                                       ; Dlini strok nahodyatsya po adressm [si-1] and [di-1]
+[  29]        :                                       ; Count vhozdenii - v al
+[  30]        :                                       
+[  31]    0360:                                       subroutine proc
+[  32]    0360: 32 C0                                 xor al,al ; ochistka pamyati dlya hranenia kolva vhosdenii
+[  33]    0362: 8A 4D FF                              mov cl,[di-1] ; sohranyaem dlinu str 1
+[  34]    0365: 2A 4C FF                              sub cl,[si-1] ; sohranyeam dlinu str 2
+[  35]    0368: 72 18                                 jb Exit ; esly cl otric - t.e. str1 < str2 - vihod
+[  36]    036A: FE C1                                 inc cl
+[  37]    036C: 8A E8                                 mov ch,al; ; uvelichivaem na edinistu i sohranyeam
+[  38]        :                                       
+[  39]    036E: 51                                    m1: push cx ; sravnivaem posimvolno stroki: so stekom raboutaem
+[  40]    036F: 57                                    push di
+[  41]    0370: 56                                    push si
+[  42]    0371: 8A 4C FF                              mov cl,[si-1]
+[  43]    0374: 32 ED                                 xor ch,ch ; sravnenie simvolov
+[  44]    0376: F3 A6                                 repe cmpsb ; sravnenie baiti 2 strok
+[  45]    0378: 75 02                                 jne m2 ; ne sovpalo
+[  46]    037A: FE C0                                 inc al ; sovpalo
+[  47]        :                                       
+[  48]    037C: 5E                                    m2: pop si ; prodvigaemsya po strochkam
+[  49]    037D: 5F                                    pop di ; vnis po steku
+[  50]    037E: 47                                    inc di
+[  51]    037F: 59                                    pop cx
+[  52]    0380: E2 EC                                 loop m1 ; povtoryaem metku
+[  53]    0382: C3                                    Exit: ret
+[  54]        :                                       subroutine endp
+[  55]        :                                       ;=======================================
+[  56]        :                                       
+[  57]    0383: B8 10 00                              start: mov ax,data ; zagruzka dannih
+[  58]    0386: 8E D8                                 mov ds,ax ; registri dlya strok
+[  59]    0388: 8E C0                                 mov es,ax
+[  60]    038A: B4 09                                 mov ah,9
+[  61]    038C: BA 00 00                              lea dx,prompt1 ; dlya vvoda 1 str
+[  62]    038F: CD 21                                 int 21h
+[  63]    0391: B4 0A                                 mov ah,10 ; dlya chetinia buferu
+[  64]    0393: BA 5E 00                              lea dx,buf1
+[  65]    0396: CD 21                                 int 21h
+[  66]    0398: B4 09                                 mov ah,9
+[  67]    039A: BA 12 00                              lea dx,prompt2  ;  dlya vvoda 2 str
+[  68]    039D: CD 21                                 int 21h
+[  69]    039F: B4 0A                                 mov ah,10
+[  70]    03A1: BA 5F 01                              lea dx,buf2  ; dlya chetinia buferu
+[  71]    03A4: CD 21                                 int 21h
+[  72]    03A6: BF 60 00                              lea di,str1 ; zagruzka strok
+[  73]    03A9: BE 61 01                              lea si,str2
+[  74]    03AC: E8 B1 FF                              call subroutine; visov podprogrami
+[  75]    03AF: 0A C0                                 or al,al ; esli sodershitsya (t.e. chto-to est v al krome 0)
+[  76]    03B1: 75 09                                 jne Yes  ; v metku
+[  77]        :                                       
+[  78]    03B3: BA 26 00                              No: lea dx,txtno ; net ne sodershitsya
+[  79]    03B6: B4 09                                 mov ah,9
+[  80]    03B8: CD 21                                 int 21h
+[  81]    03BA: EB 2C                                 jmp quit
+[  82]        :                                       
+[  83]    03BC: 50                                    Yes: push ax
+[  84]    03BD: BA 23 00                              lea dx,crlf ; vvivod stroki dlya perenosa
+[  85]    03C0: B4 09                                 mov ah,9
+[  86]    03C2: CD 21                                 int 21h
+[  87]    03C4: BA 42 00                              lea dx,txtyes ; vvivod stroki dlya perenosa
+[  88]    03C7: CD 21                                 int 21h
+[  89]    03C9: 58                                    pop ax
+[  90]    03CA: 32 E4                                 xor ah,ah
+[  91]    03CC: BB 0A 30                              mov bx,300Ah
+[  92]    03CF: F6 F3                                 div bl
+[  93]    03D1: 02 FC                                 add bh,ah
+[  94]    03D3: 32 E4                                 xor ah,ah
+[  95]    03D5: F6 F3                                 div bl
+[  96]    03D7: BA 30 30                              mov dx,3030h
+[  97]    03DA: 03 D0                                 add dx,ax
+[  98]    03DC: B4 02                                 mov ah,2
+[  99]    03DE: CD 21                                 int 21h
+[ 100]    03E0: 8A D6                                 mov dl,dh
+[ 101]    03E2: CD 21                                 int 21h
+[ 102]    03E4: 8A D7                                 mov dl,bh
+[ 103]    03E6: CD 21                                 int 21h
+[ 104]        :                                       
+[ 105]    03E8: 32 E4                                 quit: xor ah,ah ; ochistka pamyati
+[ 106]    03EA: CD 16                                 int 16h
+[ 107]    03EC: B4 4C                                 mov ah,4Ch
+[ 108]    03EE: CD 21                                 int 21h
+[ 109]        :                                       code ends
+[ 110]        :                                       end start
+[ 111]        :                                       
+[ 112]        :                                       ret
+[ 113]        :                                       
+[ 114]        :                                       
+[ 115]        :                                       
+[ 116]        :                                       
+[ 117]        :                                       
+[ 118]        :                                       
+ 
+===================================================================================================
+ 
+
+
+
+
+===================================================================================================

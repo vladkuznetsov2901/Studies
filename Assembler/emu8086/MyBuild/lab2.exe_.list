@@ -1,0 +1,83 @@
+EMU8086 GENERATED LISTING. MACHINE CODE <- SOURCE.
+ 
+lab2.exe_ -- emu8086 assembler version: 4.08  
+ 
+[ 16.03.2023  --  19:00:20 ] 
+ 
+===================================================================================================
+[LINE]     LOC: MACHINE CODE                          SOURCE
+===================================================================================================
+ 
+[   1]        :                                       data segment
+[   2]    0000: 0A 00                                 a dw 10
+[   3]    0002: 14 00                                 b dw 20
+[   4]    0004: 05 00                                 c dw 5
+[   5]    0006: 00 00                                 x dw ?
+[   6]        :                                       data ends
+[   7]        :                                       code segment
+[   8]        :                                       assume cs: code, ds: data
+[   9]    0010: B8 00 00                              start: mov ax, data
+[  10]    0013: 8E D8                                 mov ds, ax 		
+[  11]    0015: A1 00 00                              mov ax, a
+[  12]    0018: 8B 1E 02 00                           mov bx, b
+[  13]    001C: 8B 16 02 00                           mov dx, b
+[  14]    0020: 8B 0E 04 00                           mov cx, c
+[  15]    0024: D1 E0                                 sal ax, 1
+[  16]    0026: D1 E3 D1 E3                           sal bx, 2
+[  17]    002A: 03 C1                                 add ax, cx
+[  18]    002C: 03 C3                                 add ax, bx
+[  19]    002E: 03 C2                                 add ax, dx
+[  20]    0030: F7 D8                                 neg ax
+[  21]    0032: A3 06 00                              mov x, ax 		
+[  22]    0035:                                       quit:
+[  23]    0035: B8 00 4C                              mov ax, 4c00h 	
+[  24]    0038: CD 15                                 int 21 			
+[  25]        :                                       code ends
+[  26]        :                                       end start
+[  27]        :                                       
+[  28]        :                                       
+ 
+===================================================================================================
+ 
+EXE HEADER - bytes from 0000 to 01FF inclusive.
+
+0000: 4D      -   exe signature (M)
+0001: 5A      -   exe signature (Z)
+0002: 3A      -   bytes on last page (l.byte)
+0003: 00      -   bytes on last page (h.byte)
+0004: 02      -   512 byte pages in file (l.byte)
+0005: 00      -   512 byte pages in file (h.byte)
+0006: 01      -   relocations (l.byte)
+0007: 00      -   relocations (h.byte)
+0008: 20      -   paragraphs in header (l.byte)
+0009: 00      -   paragraphs in header (h.byte)
+000A: 00      -   minimum memory (l.byte)
+000B: 00      -   minimum memory (h.byte)
+000C: FF      -   maximum memory (l.byte)
+000D: FF      -   maximum memory (h.byte)
+000E: 00      -   SS - stack segment (l.byte)
+000F: 00      -   SS - stack segment (h.byte)
+0010: 00      -   SP - stack pointer (l.byte)
+0011: 00      -   SP - stack pointer (h.byte)
+0012: F5      -   check sum (l.byte)
+0013: 48      -   check sum (h.byte)
+0014: 00      -   IP - instruction pointer (l.byte)
+0015: 00      -   IP - instruction pointer (h.byte)
+0016: 01      -   CS - code segment (l.byte)
+0017: 00      -   CS - code segment (h.byte)
+0018: 1E      -   relocation table adress (l.byte)
+0019: 00      -   relocation table adress (h.byte)
+001A: 00      -   overlay number (l.byte)
+001B: 00      -   overlay number (h.byte)
+001C: 01      -   signature (l.byte)
+001D: 00      -   signature (h.byte)
+001E: 01      -   relocation table - offset inside segment (l.byte)
+001F: 00      -   relocation table - offset inside segment (h.byte)
+0020: 01      -   relocation table - segment anchor (l.byte)
+0021: 00      -   relocation table - segment anchor (h.byte)
+0022 to 01FF  -   reserved relocation area  (00) 
+
+
+
+
+===================================================================================================

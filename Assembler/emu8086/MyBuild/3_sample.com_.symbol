@@ -1,0 +1,16 @@
+< THE SYMBOL TABLE >  3_sample.com_  --  emu8086 assembler version: 4.08 
+===================================================================================================
+Name                     	Offset    	Size      	Type      	Segment   
+===================================================================================================
+DATA                     	00010     	-5        	SEGMENT   	(ITSELF)  
+VECTOR                   	00000     	1         	VAR       	data      
+CNT                      	0000A     	1         	VAR       	data      
+CODE                     	00011     	-5        	SEGMENT   	(ITSELF)  
+NEXT                     	00006     	-1        	LABEL     	code      
+BIT_LOOP                 	0000A     	-1        	LABEL     	code      
+SKIP                     	00010     	-1        	LABEL     	code      
+NEXT_BYTE                	00022     	-1        	LABEL     	code      
+===================================================================================================
+[ 09.04.2023  --  23:12:32 ] 
+< END >
+ 

@@ -1,0 +1,106 @@
+1. 3E9
+mov Ax, 1C6h
+mov Bx, 223h
+add Ax, Bx
+
+2. 3EA
+mov Ax, 192h
+mov Bx, 258h
+add Ax, Bx
+
+3. 2B2
+mov Ax, 29Eh
+mov Bx, 14h
+add Ax, Bx
+
+4. 3EC
+mov Ax, 28Fh
+mov Bx, 15Dh
+add Ax, Bx
+
+5. 3ED
+mov Ax, 1DFh
+mov Bx, 20Eh
+add Ax, Bx
+
+6. 3EE
+mov Ax, 2AAh
+mov Bx, 144h
+add Ax, Bx
+
+7. 3EF
+mov Ax, 1BBh
+mov Bx, 234h
+add Ax, Bx
+
+8. 3F0
+mov Ax, 1CCh
+mov Bx, 224h
+add Ax, Bx
+
+9. 3F1
+mov Ax, 1FFh
+mov Bx, 1F2h
+add Ax, Bx
+
+10. 3F2
+mov Ax, 1EEh
+mov Bx, 204h
+add Ax, Bx
+
+11. 3F3
+mov Ax, 1ABh
+mov Bx, 248h
+add Ax, Bx
+
+12. 3F4
+mov Ax, 1BAh
+mov Bx, 23Ah
+add Ax, Bx
+
+13. 3F5
+mov Ax, 1ACh
+mov Bx, 249h
+add Ax, Bx
+
+14. 3F6
+mov Ax, 1CAh
+mov Bx, 22Ch
+add Ax, Bx
+
+15. 3F8
+mov Ax, 1DAh
+mov Bx, 21Eh
+add Ax, Bx
+
+SUBSTRACT:
+
+1. 70С
+mov Ax, 92Ah
+mov Bx, 21Eh
+sub Ax, Bx
+
+2. FFFF
+mov Ax, 0h
+mov Bx, 1h
+sub Ax, Bx
+
+3. 0302
+mov Ax, 0102h
+add AH, AL
+
+MULTIPLY:
+
+1. 7C4B00
+mov Ax, 7C4Bh
+mov Bx, 100h
+mul Bx
+
+DIVIDE:
+
+1. 7C4B0012
+mov Ax, 4B12h
+mov Dx, 007Ch
+mov Bx, 0100h
+div Bx
+

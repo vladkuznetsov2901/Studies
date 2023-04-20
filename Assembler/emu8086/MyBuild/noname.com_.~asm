@@ -1,0 +1,118 @@
+
+; You may customize this and other start-up templates;
+; The location of this template is c:\emu8086\inc\0_com_template.txt
+
+org 100h
+
+data segment
+
+prompt1 db 'Vvod 1 stroki: ',13,10,'$'
+prompt2 db 13,10,'Vvod 2 stroki: '
+crlf db 13,10,'$' ; str s perevodom stroki
+txtno db 13,10,'Ne soderzhitsya podstroka$'
+txtyes db 'Soderzhitsya podstroka raz $'
+buf1 db 255,? ;  dlya strok
+str1 db 255 dup (?) ; pereminie dlya hranenia strok
+
+buf2 db 255,? ; buferi dlya strok
+str2 db 255 dup (?) ; pereminie dlya hranenia strok
+
+
+data ends
+
+code segment
+assume cs:code,ds:data
+
+; podprogramma podscheta count vhozdenii
+; podstroki [si] v stroku [di]
+; Dlini strok nahodyatsya po adressm [si-1] and [di-1]
+; Count vhozdenii - v al
+
+subroutine proc
+xor al,al ; ochistka pamyati dlya hranenia kolva vhosdenii
+mov cl,[di-1] ; sohranyaem dlinu str 1
+sub cl,[si-1] ; sohranyeam dlinu str 2
+jb Exit ; esly cl otric - t.e. str1 < str2 - vihod
+inc cl
+mov ch,al; ; uvelichivaem na edinistu i sohranyeam
+
+m1: push cx ; sravnivaem posimvolno stroki: so stekom raboutaem
+push di
+push si
+mov cl,[si-1]
+xor ch,ch ; sravnenie simvolov
+repe cmpsb ; sravnenie baiti 2 strok
+jne m2 ; ne sovpalo
+inc al ; sovpalo
+
+m2: pop si ; prodvigaemsya po strochkam
+pop di ; vnis po steku
+inc di
+pop cx
+loop m1 ; povtoryaem metku
+Exit: ret
+subroutine endp
+;=======================================
+
+start: mov ax,data ; zagruzka dannih
+mov ds,ax ; registri dlya strok
+mov es,ax
+mov ah,9
+lea dx,prompt1 ; dlya vvoda 1 str
+int 21h
+mov ah,10 ; dlya chetinia buferu
+lea dx,buf1
+int 21h
+mov ah,9
+lea dx,prompt2  ;  dlya vvoda 2 str
+int 21h
+mov ah,10
+lea dx,buf2  ; dlya chetinia buferu
+int 21h
+lea di,str1 ; zagruzka strok
+lea si,str2
+call subroutine; visov podprogrami
+or al,al ; esli sodershitsya (t.e. chto-to est v al krome 0)
+jne Yes  ; v metku
+
+No: lea dx,txtno ; net ne sodershitsya
+mov ah,9
+int 21h
+jmp quit
+
+Yes: push ax
+lea dx,crlf ; vvivod stroki dlya perenosa
+mov ah,9
+int 21h
+lea dx,txtyes ; vvivod stroki dlya perenosa
+int 21h
+pop ax
+xor ah,ah
+mov bx,300Ah
+div bl
+add bh,ah
+xor ah,ah
+div bl
+mov dx,3030h
+add dx,ax
+mov ah,2
+int 21h
+mov dl,dh
+int 21h
+mov dl,bh
+int 21h
+
+quit: xor ah,ah ; ochistka pamyati
+int 16h
+mov ah,4Ch
+int 21h
+code ends
+end start
+
+ret
+
+
+
+
+
+

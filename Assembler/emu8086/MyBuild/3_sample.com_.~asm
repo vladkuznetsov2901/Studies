@@ -1,0 +1,44 @@
+
+
+org 100h
+
+data segment
+vector db 10101010b, 11110000b, 00001111b, 11001100b, 11111111b, 00000000b, 01010101b, 10101010b, 00110011b, 11001100b
+cnt db 0
+data ends
+
+code segment
+assume cs: code. ds:data
+
+
+mov bx, 0     ; bx is an index
+mov cx, 10    ; number of elements
+
+next:
+mov al, vector[bx]   ; load byte
+mov dl, 0            ; reset bit position
+bit_loop:
+test al, 1         ; check if bit is set
+jz skip           ; jump if not set
+mov ah, 1         ; set flag to increment counter
+skip:
+shr al, 1          ; next bit
+inc dl             ; increment bit position
+cmp dl, 8          ; check if we have checked all bits
+jne bit_loop       ; if not, go to next bit
+cmp ah, 1            ; check if we found a bit at a multiple of 3
+jne next_byte        ; if not, go to next byte
+inc cnt              ; increment counter
+next_byte:
+inc bx               ; next byte
+loop next            ; loop until cx=0
+
+mov ah, 0
+int 16h
+code ends
+ret
+
+
+
+
+; [SOURCE]: D:\Studies\Assembler\lab4\3_sample.asm

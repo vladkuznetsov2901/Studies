@@ -1,0 +1,25 @@
+data segment
+mass dw 10,24,76,479,-347,281,-24,70,124,97 ; заменяем все dw на db, так как нам потребуется ; обращаться к отдельным байтам массива
+data ends
+code segment
+assume cs: code, ds: data
+start:
+mov ax, data
+mov ds, ax
+lea bx, mass
+mov cx, 10
+
+beg:
+cmp byte ptr [bx], 0
+jge no_change ; если число неотрицательное, пропускаем замену
+mov byte ptr [bx], 0 ; иначе заменяем его на 0
+no_change:
+inc bx
+loop beg
+
+quit:
+mov ah, 4Ch
+int 21h
+code ends
+end start
+

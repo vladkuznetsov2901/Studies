@@ -1,0 +1,54 @@
+EMU8086 GENERATED LISTING. MACHINE CODE <- SOURCE.
+ 
+led.bin_ -- emu8086 assembler version: 4.08  
+ 
+[ 09.04.2023  --  15:28:32 ] 
+ 
+===================================================================================================
+[LINE]     LOC: MACHINE CODE                          SOURCE
+===================================================================================================
+ 
+[   1]        :                                       ; this example shows how to access virtual ports (0 to 65535).
+[   2]        :                                       ; these ports are emulated in this file: c:\emu8086.io
+[   3]        :                                       
+[   4]        :                                       ; this technology allows to make external add-on devices
+[   5]        :                                       ; for emu8086, such as led displays, robots, thermometers, stepper-motors, etc... etc...
+[   6]        :                                       
+[   7]        :                                       ; anyone can create an animated virtual device.
+[   8]        :                                       
+[   9]        :                                       ; c:\emu8086\devices\led_display.exe
+[  10]        :                                       
+[  11]        :                                       #start=led_display.exe#
+[  12]        :                                       
+[  13]        :                                       
+[  14]        :                                       #make_bin#
+[  15]        :                                       
+[  16]        :                                       name "led"
+[  17]        :                                       
+[  18]    0000: B8 D2 04                              mov ax, 1234
+[  19]    0003: E7 C7                                 out 199, ax
+[  20]        :                                       
+[  21]    0005: B8 D2 E9                              mov ax, -5678
+[  22]    0008: E7 C7                                 out 199, ax
+[  23]        :                                       
+[  24]        :                                       ; Eternal loop to write
+[  25]        :                                       ; values to port:
+[  26]    000A: B8 00 00                              mov ax, 0
+[  27]    000D:                                       x1:
+[  28]    000D: E7 C7                                 out 199, ax
+[  29]    000F: 40                                    inc ax
+[  30]    0010: EB FB                                 jmp x1
+[  31]        :                                       
+[  32]    0012: F4                                    hlt
+[  33]        :                                       
+[  34]        :                                       
+[  35]        :                                       
+[  36]        :                                       
+ 
+===================================================================================================
+ 
+
+
+
+
+===================================================================================================

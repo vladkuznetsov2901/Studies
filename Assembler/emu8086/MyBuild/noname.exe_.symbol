@@ -1,0 +1,27 @@
+< THE SYMBOL TABLE >  noname.exe_  --  emu8086 assembler version: 4.08 
+===================================================================================================
+Name                     	Offset    	Size      	Type      	Segment   
+===================================================================================================
+DATA                     	00000     	-5        	SEGMENT   	(ITSELF)  
+PROMPT1                  	00000     	1         	VAR       	data      
+PROMPT2                  	00010     	1         	VAR       	data      
+CRLF                     	0001F     	1         	VAR       	data      
+TXTNO                    	00022     	1         	VAR       	data      
+TXTYES                   	0002B     	1         	VAR       	data      
+BUF1                     	00034     	1         	VAR       	data      
+STR1                     	00036     	1         	VAR       	data      
+BUF2                     	00135     	1         	VAR       	data      
+STR2                     	00137     	1         	VAR       	data      
+CODE                     	00024     	-5        	SEGMENT   	(ITSELF)  
+SUBROUTINE               	00000     	-1        	NEAR      	code      
+M1                       	0000E     	-1        	LABEL     	code      
+M2                       	0001C     	-1        	LABEL     	code      
+EXIT                     	00022     	-1        	LABEL     	code      
+START                    	00023     	-1        	LABEL     	code      
+NO                       	00053     	-1        	LABEL     	code      
+YES                      	0005C     	-1        	LABEL     	code      
+QUIT                     	00088     	-1        	LABEL     	code      
+===================================================================================================
+[ 17.04.2023  --  13:17:54 ] 
+< END >
+ 

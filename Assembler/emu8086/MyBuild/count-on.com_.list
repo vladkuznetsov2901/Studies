@@ -1,0 +1,55 @@
+EMU8086 GENERATED LISTING. MACHINE CODE <- SOURCE.
+ 
+count-on.com_ -- emu8086 assembler version: 4.08  
+ 
+[ 09.04.2023  --  23:18:30 ] 
+ 
+===================================================================================================
+[LINE]     LOC: MACHINE CODE                          SOURCE
+===================================================================================================
+ 
+[   1]        :                                       name "count-ones-in-multiples-of-3"
+[   2]        :                                       
+[   3]        :                                       org 100h
+[   4]        :                                       
+[   5]        :                                       ; variables:
+[   6]    0100: 04 07 19                              vector db 04h, 07h, 19h
+[   7]    0103: 00                                    cnt db 0
+[   8]        :                                       
+[   9]    0104: BB 00 00                              mov bx, 0     ; bx is an index
+[  10]    0107: B9 03 00                              mov cx, 3    ; number of elements
+[  11]        :                                       
+[  12]    010A:                                       next:
+[  13]    010A: 8A 87 00 01                           mov al, vector[bx]   ; load byte
+[  14]    010E: B2 00                                 mov dl, 0            ; reset bit position
+[  15]    0110:                                       bit_loop:
+[  16]    0110: A8 01                                 test al, 1         ; check if bit is set
+[  17]    0112: 74 02                                 jz skip           ; jump if not set
+[  18]    0114: B4 01                                 mov ah, 1         ; set flag to increment counter
+[  19]    0116:                                       skip:
+[  20]    0116: D0 E8                                 shr al, 1          ; next bit
+[  21]    0118: FE C2                                 inc dl             ; increment bit position
+[  22]    011A: 80 FA 08                              cmp dl, 8          ; check if we have checked all bits
+[  23]    011D: 75 F1                                 jne bit_loop       ; if not, go to next bit
+[  24]    011F: 80 FC 01                              cmp ah, 1            ; check if we found a bit at a multiple of 3
+[  25]    0122: 75 04                                 jne next_byte        ; if not, go to next byte
+[  26]    0124: FE 06 03 01                           inc cnt              ; increment counter
+[  27]    0128:                                       next_byte:
+[  28]    0128: 43                                    inc bx               ; next byte
+[  29]    0129: 83 C3 02                              add bx, 2            ; increment by 2 since we only check every third byte
+[  30]    012C: E2 DC                                 loop next            ; loop until cx=0
+[  31]        :                                       
+[  32]    012E: B4 00                                 mov ah, 0
+[  33]    0130: CD 16                                 int 16h
+[  34]        :                                       
+[  35]    0132: C3                                    ret
+[  36]        :                                       
+[  37]        :                                       
+ 
+===================================================================================================
+ 
+
+
+
+
+===================================================================================================

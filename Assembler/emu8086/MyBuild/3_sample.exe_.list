@@ -1,0 +1,116 @@
+EMU8086 GENERATED LISTING. MACHINE CODE <- SOURCE.
+ 
+3_sample.exe_ -- emu8086 assembler version: 4.08  
+ 
+[ 10.04.2023  --  13:30:27 ] 
+ 
+===================================================================================================
+[LINE]     LOC: MACHINE CODE                          SOURCE
+===================================================================================================
+ 
+[   1]        :                                       data segment
+[   2]    0000: A4 B4                                 NB db 10100100b, 10110100b ;10100100b, 10110100b
+[   3]    0002: 00                                    cnt db 0
+[   4]        :                                       data ends
+[   5]        :                                       
+[   6]        :                                       ; количество единиц в разрядах кратных 3
+[   7]        :                                       code segment
+[   8]        :                                       assume cs: code, ds: data
+[   9]    0010:                                       START:
+[  10]    0010: B8 00 00                              mov ax, data
+[  11]    0013: 8E D8                                 mov ds, ax
+[  12]    0015: BB 00 00                              lea bx, NB
+[  13]        :                                       
+[  14]    0018: B9 02 00                              mov cx, 2 ; 8 байт в NB
+[  15]    001B: C6 06 02 00 00                        mov cnt, 0 ; инициализация счетчика
+[  16]    0020: BE 00 00                              mov si, 0
+[  17]        :                                       
+[  18]    0023:                                       BEG:
+[  19]    0023: 8A 07                                 mov al, [bx]
+[  20]    0025: 49                                    dec cx
+[  21]        :                                       
+[  22]        :                                       
+[  23]        :                                       
+[  24]        :                                       
+[  25]    0026:                                       COUNT_LOOP:
+[  26]        :                                       
+[  27]    0026: D0 E0 D0 E0                           shl al, 2
+[  28]    002A: D0 E0                                 shl al, 1
+[  29]    002C: 72 02                                 jc COUNT
+[  30]    002E: EB 1A                                 jmp NOT_COUNT
+[  31]        :                                       
+[  32]        :                                       
+[  33]    0030:                                       COUNT:
+[  34]    0030: FE 06 02 00                           inc cnt
+[  35]    0034: D0 E0 D0 E0                           shl al, 2
+[  36]    0038: D0 E0                                 shl al, 1
+[  37]    003A: 72 02                                 jc COUNT2
+[  38]    003C: EB 0C                                 jmp NOT_COUNT
+[  39]        :                                       
+[  40]    003E:                                       COUNT2:
+[  41]    003E: FE 06 02 00                           inc cnt
+[  42]    0042: 83 F9 00                              cmp cx, 0
+[  43]    0045: 74 13                                 je quit
+[  44]    0047: 43                                    inc bx
+[  45]    0048: EB D9                                 jmp beg
+[  46]        :                                       
+[  47]    004A:                                       NOT_COUNT:
+[  48]    004A: D0 E0 D0 E0                           shl al, 2
+[  49]    004E: D0 E0                                 shl al, 1
+[  50]    0050: 72 EC                                 jc COUNT2
+[  51]    0052: 83 F9 00                              cmp cx, 0
+[  52]    0055: 74 03                                 je quit
+[  53]    0057: 43                                    inc bx
+[  54]    0058: EB C9                                 jmp beg
+[  55]        :                                       
+[  56]    005A:                                       QUIT:
+[  57]    005A: B8 00 4C                              mov ax, 4C00h
+[  58]    005D: CD 21                                 int 21h
+[  59]        :                                       code ends
+[  60]        :                                       end START
+[  61]        :                                       
+ 
+===================================================================================================
+ 
+EXE HEADER - bytes from 0000 to 01FF inclusive.
+
+0000: 4D      -   exe signature (M)
+0001: 5A      -   exe signature (Z)
+0002: 5F      -   bytes on last page (l.byte)
+0003: 00      -   bytes on last page (h.byte)
+0004: 02      -   512 byte pages in file (l.byte)
+0005: 00      -   512 byte pages in file (h.byte)
+0006: 01      -   relocations (l.byte)
+0007: 00      -   relocations (h.byte)
+0008: 20      -   paragraphs in header (l.byte)
+0009: 00      -   paragraphs in header (h.byte)
+000A: 00      -   minimum memory (l.byte)
+000B: 00      -   minimum memory (h.byte)
+000C: FF      -   maximum memory (l.byte)
+000D: FF      -   maximum memory (h.byte)
+000E: 00      -   SS - stack segment (l.byte)
+000F: 00      -   SS - stack segment (h.byte)
+0010: 00      -   SP - stack pointer (l.byte)
+0011: 00      -   SP - stack pointer (h.byte)
+0012: C4      -   check sum (l.byte)
+0013: 25      -   check sum (h.byte)
+0014: 00      -   IP - instruction pointer (l.byte)
+0015: 00      -   IP - instruction pointer (h.byte)
+0016: 01      -   CS - code segment (l.byte)
+0017: 00      -   CS - code segment (h.byte)
+0018: 1E      -   relocation table adress (l.byte)
+0019: 00      -   relocation table adress (h.byte)
+001A: 00      -   overlay number (l.byte)
+001B: 00      -   overlay number (h.byte)
+001C: 01      -   signature (l.byte)
+001D: 00      -   signature (h.byte)
+001E: 01      -   relocation table - offset inside segment (l.byte)
+001F: 00      -   relocation table - offset inside segment (h.byte)
+0020: 01      -   relocation table - segment anchor (l.byte)
+0021: 00      -   relocation table - segment anchor (h.byte)
+0022 to 01FF  -   reserved relocation area  (00) 
+
+
+
+
+===================================================================================================

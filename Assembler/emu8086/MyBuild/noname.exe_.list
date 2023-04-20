@@ -1,0 +1,200 @@
+EMU8086 GENERATED LISTING. MACHINE CODE <- SOURCE.
+ 
+noname.exe_ -- emu8086 assembler version: 4.08  
+ 
+[ 17.04.2023  --  13:17:54 ] 
+ 
+===================================================================================================
+[LINE]     LOC: MACHINE CODE                          SOURCE
+===================================================================================================
+ 
+[   1]        :                                       data segment
+[   2]        :                                       
+[   3]    0000: 49 6E 70 75 74 20 73 74 72 20 31 3A   prompt1 db 'Input str 1: ',13,10,'$'
+                20 0D 0A 24                         
+[   4]    0010: 0D 0A 49 6E 70 75 74 20 73 74 72 20   prompt2 db 13,10,'Input str 2: '
+                32 3A 20                            
+[   5]    001F: 0D 0A 24                              crlf db 13,10,'$'
+[   6]    0022: 0D 0A 4E 6F 20 73 74 72 24            txtno db 13,10,'No str$'
+[   7]    002B: 53 74 72 20 63 6E 74 20 24            txtyes db 'Str cnt $'
+[   8]    0034: FF 00                                 buf1 db 255,?
+[   9]    0036: 00 00 00 00 00 00 00 00 00 00 00 00   str1 db 255 dup (?)
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00                            
+[  10]        :                                       
+[  11]    0135: FF 00                                 buf2 db 255,?
+[  12]    0137: 00 00 00 00 00 00 00 00 00 00 00 00   str2 db 255 dup (?)
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00                            
+[  13]        :                                       
+[  14]        :                                       
+[  15]        :                                       data ends
+[  16]        :                                       
+[  17]        :                                       code segment
+[  18]        :                                       assume cs:code,ds:data
+[  19]        :                                       
+[  20]        :                                       
+[  21]    0240:                                       subroutine proc
+[  22]    0240: 32 C0                                 xor al,al
+[  23]    0242: 8A 4D FF                              mov cl,[di-1]
+[  24]    0245: 2A 4C FF                              sub cl,[si-1]
+[  25]    0248: 72 18                                 jb Exit
+[  26]    024A: FE C1                                 inc cl
+[  27]    024C: 8A E8                                 mov ch,al
+[  28]        :                                       
+[  29]    024E: 51                                    m1: push cx
+[  30]    024F: 57                                    push di
+[  31]    0250: 56                                    push si
+[  32]    0251: 8A 4C FF                              mov cl,[si-1]
+[  33]    0254: 32 ED                                 xor ch,ch
+[  34]    0256: F3 A6                                 repe cmpsb
+[  35]    0258: 75 02                                 jne m2
+[  36]    025A: FE C0                                 inc al
+[  37]        :                                       
+[  38]    025C: 5E                                    m2: pop si
+[  39]    025D: 5F                                    pop di
+[  40]    025E: 47                                    inc di
+[  41]    025F: 59                                    pop cx
+[  42]    0260: E2 EC                                 loop m1
+[  43]    0262: C3                                    Exit: ret
+[  44]        :                                       subroutine endp
+[  45]        :                                       ;=======================================
+[  46]        :                                       
+[  47]    0263: B8 00 00                              start: mov ax,data
+[  48]    0266: 8E D8                                 mov ds,ax
+[  49]    0268: 8E C0                                 mov es,ax
+[  50]    026A: B4 09                                 mov ah,9
+[  51]    026C: BA 00 00                              lea dx,prompt1
+[  52]    026F: CD 21                                 int 21h
+[  53]    0271: B4 0A                                 mov ah,10
+[  54]    0273: BA 34 00                              lea dx,buf1
+[  55]    0276: CD 21                                 int 21h
+[  56]    0278: B4 09                                 mov ah,9
+[  57]    027A: BA 10 00                              lea dx,prompt2
+[  58]    027D: CD 21                                 int 21h
+[  59]    027F: B4 0A                                 mov ah,10
+[  60]    0281: BA 35 01                              lea dx,buf2
+[  61]    0284: CD 21                                 int 21h
+[  62]    0286: BF 36 00                              lea di,str1
+[  63]    0289: BE 37 01                              lea si,str2
+[  64]    028C: E8 B1 FF                              call subroutine
+[  65]    028F: 0A C0                                 or al,al
+[  66]    0291: 75 09                                 jne Yes
+[  67]        :                                       
+[  68]    0293: BA 22 00                              No: lea dx,txtno
+[  69]    0296: B4 09                                 mov ah,9
+[  70]    0298: CD 21                                 int 21h
+[  71]    029A: EB 2C                                 jmp quit
+[  72]        :                                       
+[  73]    029C: 50                                    Yes: push ax
+[  74]    029D: BA 1F 00                              lea dx,crlf
+[  75]    02A0: B4 09                                 mov ah,9
+[  76]    02A2: CD 21                                 int 21h
+[  77]    02A4: BA 2B 00                              lea dx,txtyes
+[  78]    02A7: CD 21                                 int 21h
+[  79]    02A9: 58                                    pop ax
+[  80]    02AA: 32 E4                                 xor ah,ah
+[  81]    02AC: BB 0A 30                              mov bx,300Ah
+[  82]    02AF: F6 F3                                 div bl
+[  83]    02B1: 02 FC                                 add bh,ah
+[  84]    02B3: 32 E4                                 xor ah,ah
+[  85]    02B5: F6 F3                                 div bl
+[  86]    02B7: BA 30 30                              mov dx,3030h
+[  87]    02BA: 03 D0                                 add dx,ax
+[  88]    02BC: B4 02                                 mov ah,2
+[  89]    02BE: CD 21                                 int 21h
+[  90]    02C0: 8A D6                                 mov dl,dh
+[  91]    02C2: CD 21                                 int 21h
+[  92]    02C4: 8A D7                                 mov dl,bh
+[  93]    02C6: CD 21                                 int 21h
+[  94]        :                                       
+[  95]    02C8: 32 E4                                 quit: xor ah,ah
+[  96]    02CA: CD 16                                 int 16h
+[  97]    02CC: B4 4C                                 mov ah,4Ch
+[  98]    02CE: CD 21                                 int 21h
+[  99]        :                                       code ends
+[ 100]        :                                       end start
+[ 101]        :                                       
+ 
+===================================================================================================
+ 
+EXE HEADER - bytes from 0000 to 01FF inclusive.
+
+0000: 4D      -   exe signature (M)
+0001: 5A      -   exe signature (Z)
+0002: D0      -   bytes on last page (l.byte)
+0003: 00      -   bytes on last page (h.byte)
+0004: 03      -   512 byte pages in file (l.byte)
+0005: 00      -   512 byte pages in file (h.byte)
+0006: 01      -   relocations (l.byte)
+0007: 00      -   relocations (h.byte)
+0008: 20      -   paragraphs in header (l.byte)
+0009: 00      -   paragraphs in header (h.byte)
+000A: 00      -   minimum memory (l.byte)
+000B: 00      -   minimum memory (h.byte)
+000C: FF      -   maximum memory (l.byte)
+000D: FF      -   maximum memory (h.byte)
+000E: 00      -   SS - stack segment (l.byte)
+000F: 00      -   SS - stack segment (h.byte)
+0010: 00      -   SP - stack pointer (l.byte)
+0011: 00      -   SP - stack pointer (h.byte)
+0012: 0A      -   check sum (l.byte)
+0013: A7      -   check sum (h.byte)
+0014: 23      -   IP - instruction pointer (l.byte)
+0015: 00      -   IP - instruction pointer (h.byte)
+0016: 24      -   CS - code segment (l.byte)
+0017: 00      -   CS - code segment (h.byte)
+0018: 1E      -   relocation table adress (l.byte)
+0019: 00      -   relocation table adress (h.byte)
+001A: 00      -   overlay number (l.byte)
+001B: 00      -   overlay number (h.byte)
+001C: 01      -   signature (l.byte)
+001D: 00      -   signature (h.byte)
+001E: 24      -   relocation table - offset inside segment (l.byte)
+001F: 00      -   relocation table - offset inside segment (h.byte)
+0020: 24      -   relocation table - segment anchor (l.byte)
+0021: 00      -   relocation table - segment anchor (h.byte)
+0022 to 01FF  -   reserved relocation area  (00) 
+
+
+
+
+===================================================================================================
