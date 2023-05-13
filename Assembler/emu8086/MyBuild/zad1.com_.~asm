@@ -1,0 +1,36 @@
+; izmenite dannuu progu tak chtobi ona vivala
+; na ekran symbols english alph v obrantom poryadke
+; potom dlya ASCII
+
+org 100h
+
+mov ah, 02h ; vivod na display (dlya bukv i simvolov)
+
+mov dl, 'Z' ; 1_1 - bukvi ; zanosim c obratnogo poryadka
+mov cx, 26  ; cshetsik dlya 26 bukv
+
+;mov dl, '!' ; 1_2 - symbols
+;mov cx, 20
+
+metka:
+int 21h     ; vivod v DOS
+dec dl      ; umen`shaem dlya Z-A
+loop metka
+
+mov ah,09h       ; vivod stroki
+mov dx,press     ; vivod stroki okonchaniyea
+int 21h
+
+mov ax, 4C00h    ; ochistka konsoli
+int 21h          ; vivod v DOS
+
+;----------------
+press:
+db 13,10,'Press any key...$'
+
+
+
+
+
+
+; [SOURCE]: C:\Users\vlado\Downloads\Telegram Desktop\модуль 2\лаба 4\zad1.asm

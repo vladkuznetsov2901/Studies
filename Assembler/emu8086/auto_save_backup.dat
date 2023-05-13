@@ -1,0 +1,55 @@
+; programma dlya sravneniya 2 peremennih a i b
+; a < b a > b a = b - vivod v DOS 
+
+use16
+org 100h
+jmp start ; bezzuslovnii perehod
+
+start:
+    mov ah,[a]
+    mov al,[b]
+
+    cmp ah,al ; cravnenie chisel
+    jg a_more_b ; esli bolshe a>b
+    jl a_less_b ; esli menshe a<b
+    jz a_equal_b ; esli ravno a = b
+    
+a_more_b:
+    mov ah,09  ; vivod stroki
+    mov dx,more 
+    int 21h    ; prerivanie
+    jmp exit ; bezzuslovnii perehod
+
+a_less_b:
+    mov ah,09
+    mov dx,less ; vivod stroki
+    int 21h
+    jmp exit ; bezzuslovnii perehod
+    
+a_equal_b:
+    mov ah,09
+    mov dx,equal ; vivod stroki
+    int 21h
+    jmp exit  ; bezzuslovnii perehod
+    
+exit:
+mov ah,08h
+int 21h
+mov ax,4C00h
+int 21h
+
+;-----------------------
+a db 60
+b db 70
+
+;a db -55
+;b db 38 
+
+;a db 50
+;a db 50
+
+more dd 'a>b$'
+less dd 'a<b$'
+equal dd 'a=b$'
+
+

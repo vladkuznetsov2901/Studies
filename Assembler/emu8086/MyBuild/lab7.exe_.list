@@ -1,0 +1,207 @@
+EMU8086 GENERATED LISTING. MACHINE CODE <- SOURCE.
+ 
+lab7.exe_ -- emu8086 assembler version: 4.08  
+ 
+[ 12.05.2023  --  11:10:30 ] 
+ 
+===================================================================================================
+[LINE]     LOC: MACHINE CODE                          SOURCE
+===================================================================================================
+ 
+[   1]        :                                       .MODEL SMALL
+[   2]        :                                       .STACK 100h
+[   3]        :                                       
+[   4]        :                                       .DATA
+[   5]    0100: 0A                                    current_row db 10
+[   6]    0101: 0A                                    current_col db 10
+[   7]    0102: 20                                    char_input db ' '
+[   8]    0103: 20                                    output_char db ' '
+[   9]        :                                       
+[  10]    0104: 0D 0A 2D 2D 2D 2D 53 74 6F 70 2D 2D   stop_msg db 0dh,0ah, "----Stop----", 0dh,0ah, "$"
+                2D 2D 0D 0A 24                      
+[  11]        :                                       
+[  12]        :                                       .CODE
+[  13]    0120:                                       start:
+[  14]    0120: B8 10 00                              mov ax, @data
+[  15]    0123: 8E D8                                 mov ds, ax
+[  16]        :                                       
+[  17]        :                                       ; ????????? ??????????? ??????? ???????
+[  18]    0125: C6 06 01 00 01                        mov current_col, 1
+[  19]    012A: C6 06 00 00 01                        mov current_row, 1
+[  20]        :                                       
+[  21]        :                                       ; ????????? ??????????? ?????????? ?????????? (?? ???)
+[  22]        :                                       ;mov ah, 25h
+[  23]        :                                       ;mov al, 1Ch
+[  24]        :                                       ;lea dx, keyboard_handler
+[  25]        :                                       ;int 21h
+[  26]        :                                       
+[  27]    012F:                                       loop:
+[  28]        :                                       ; ?????? ?????? ?? ?????????? ?????
+[  29]    012F: B4 02                                 mov ah, 2
+[  30]    0131: 8A 16 01 00                           mov dl, current_col
+[  31]    0135: 8A 36 00 00                           mov dh, current_row
+[  32]    0139: CD 10                                 int 10h
+[  33]        :                                       
+[  34]        :                                       ; ???? ???????
+[  35]    013B: B4 00                                 mov ah, 00h
+[  36]    013D: CD 16                                 int 16h
+[  37]    013F: A2 02 00                              mov char_input, al
+[  38]        :                                       
+[  39]    0142: E8 02 00                              call keyboard_handler
+[  40]        :                                       
+[  41]    0145: EB E8                                 jmp loop
+[  42]        :                                       
+[  43]    0147:                                       keyboard_handler proc
+[  44]        :                                       
+[  45]        :                                       ; ?????????? ?????????? ??????????
+[  46]    0147: 80 3E 02 00 38                        cmp char_input, 38h ; ??????? "8"
+[  47]    014C: 74 2E                                 je up
+[  48]    014E: 80 3E 02 00 32                        cmp char_input, 32h ; ??????? "2"
+[  49]    0153: 74 45                                 je down
+[  50]    0155: 80 3E 02 00 34                        cmp char_input, 34h ; ??????? "4"
+[  51]    015A: 74 5C                                 je left
+[  52]    015C: 80 3E 02 00 36                        cmp char_input, 36h ; ??????? "6"
+[  53]    0161: 74 73                                 je right
+[  54]    0163: 80 3E 02 00 30                        cmp char_input, 30h ; ??????? "0"
+[  55]    0168: 75 03 E9 88 00                        je exit_program
+[  56]        :                                       
+[  57]    016D: A0 02 00                              mov al, char_input ; ???? ??? ??????
+[  58]    0170: A2 03 00                              mov output_char, al
+[  59]        :                                       
+[  60]    0173:                                       return:
+[  61]        :                                       ; ????? ??????? ? ?????? ???????
+[  62]    0173: B4 02                                 mov ah, 02h
+[  63]    0175: 8A 16 03 00                           mov dl, output_char
+[  64]    0179: CD 21                                 int 21h
+[  65]    017B: C3                                    ret ; ??? 1Ch ??? ????? ?????? iret
+[  66]        :                                       
+[  67]    017C:                                       up:
+[  68]        :                                       ; ????????? ????? ??????? ?????? ???????
+[  69]    017C: B4 02                                 mov ah, 2
+[  70]    017E: 80 2E 00 00 01                        sub current_row, 1
+[  71]    0183: 8A 16 01 00                           mov dl, current_col
+[  72]    0187: 8A 36 00 00                           mov dh, current_row
+[  73]    018B: CD 10                                 int 10h
+[  74]        :                                       
+[  75]        :                                       ; ???? ????????
+[  76]    018D: 33 C9                                 xor cx, cx
+[  77]    018F: B1 08                                 mov cl, 8h
+[  78]    0191: D1 E1 D1 E1                           shl cx, 2 ; ??????? ?? 2 ? 9 ??????? (????? ????? ?? 9)
+[  79]    0195:                                       up_delay_loop:
+[  80]    0195: 90                                    nop
+[  81]    0196: E2 FD                                 loop up_delay_loop
+[  82]        :                                       
+[  83]    0198: EB D9                                 jmp return
+[  84]        :                                       
+[  85]    019A:                                       down:
+[  86]        :                                       ; ????????? ????? ??????? ?????? ???????
+[  87]    019A: B4 02                                 mov ah, 2
+[  88]    019C: 80 06 00 00 01                        add current_row, 1
+[  89]    01A1: 8A 16 01 00                           mov dl, current_col
+[  90]    01A5: 8A 36 00 00                           mov dh, current_row
+[  91]    01A9: CD 10                                 int 10h
+[  92]        :                                       
+[  93]        :                                       ; ???? ????????
+[  94]    01AB: 33 C9                                 xor cx, cx
+[  95]    01AD: B1 02                                 mov cl, 2h
+[  96]    01AF: D1 E1 D1 E1                           shl cx, 2 ; ??????? ?? 2 ? 9 ??????? (????? ????? ?? 9)
+[  97]    01B3:                                       down_delay_loop:
+[  98]    01B3: 90                                    nop
+[  99]    01B4: E2 FD                                 loop down_delay_loop
+[ 100]        :                                       
+[ 101]    01B6: EB BB                                 jmp return
+[ 102]        :                                       
+[ 103]    01B8:                                       left:
+[ 104]        :                                       ; ????????? ????? ??????? ?????? ???????
+[ 105]    01B8: B4 02                                 mov ah, 2
+[ 106]    01BA: 80 2E 01 00 01                        sub current_col, 1
+[ 107]    01BF: 8A 16 01 00                           mov dl, current_col
+[ 108]    01C3: 8A 36 00 00                           mov dh, current_row
+[ 109]    01C7: CD 10                                 int 10h
+[ 110]        :                                       
+[ 111]        :                                       ; ???? ????????
+[ 112]    01C9: 33 C9                                 xor cx, cx
+[ 113]    01CB: B1 04                                 mov cl, 4h
+[ 114]    01CD: D1 E1 D1 E1                           shl cx, 2 ; ??????? ?? 2 ? 9 ??????? (????? ????? ?? 9)
+[ 115]    01D1:                                       left_delay_loop:
+[ 116]    01D1: 90                                    nop
+[ 117]    01D2: E2 FD                                 loop left_delay_loop
+[ 118]        :                                       
+[ 119]    01D4: EB 9D                                 jmp return
+[ 120]        :                                       
+[ 121]    01D6:                                       right:
+[ 122]        :                                       ; ????????? ????? ??????? ?????? ???????
+[ 123]    01D6: B4 02                                 mov ah, 2
+[ 124]    01D8: 80 06 01 00 01                        add current_col, 1
+[ 125]    01DD: 8A 16 01 00                           mov dl, current_col
+[ 126]    01E1: 8A 36 00 00                           mov dh, current_row
+[ 127]    01E5: CD 10                                 int 10h
+[ 128]        :                                       
+[ 129]        :                                       ; ???? ????????
+[ 130]    01E7: 33 C9                                 xor cx, cx
+[ 131]    01E9: B1 06                                 mov cl, 6h
+[ 132]    01EB: D1 E1 D1 E1                           shl cx, 2 ; ??????? ?? 2 ? 9 ??????? (????? ????? ?? 9)
+[ 133]    01EF:                                       right_delay_loop:
+[ 134]    01EF: 90                                    nop
+[ 135]    01F0: E2 FD                                 loop right_delay_loop
+[ 136]        :                                       
+[ 137]    01F2: E9 7E FF                              jmp return
+[ 138]        :                                       
+[ 139]        :                                       keyboard_handler endp
+[ 140]        :                                       
+[ 141]    01F5:                                       exit_program:
+[ 142]        :                                       ; ??????? ????????? ? ???, ??? ????????? ???????????
+[ 143]    01F5: B4 09                                 mov ah, 09h
+[ 144]    01F7: BA 04 00                              lea dx, stop_msg
+[ 145]    01FA: CD 21                                 int 21h
+[ 146]        :                                       
+[ 147]    01FC: B4 4C                                 mov ah, 4Ch ; ??????? ?? ?????????
+[ 148]    01FE: CD 21                                 int 21h ; ? ???????? ?????????? ??????? ??????? MS DOS
+[ 149]        :                                       
+[ 150]        :                                       end start
+[ 151]        :                                       
+ 
+===================================================================================================
+ 
+EXE HEADER - bytes from 0000 to 01FF inclusive.
+
+0000: 4D      -   exe signature (M)
+0001: 5A      -   exe signature (Z)
+0002: 00      -   bytes on last page (l.byte)
+0003: 00      -   bytes on last page (h.byte)
+0004: 02      -   512 byte pages in file (l.byte)
+0005: 00      -   512 byte pages in file (h.byte)
+0006: 01      -   relocations (l.byte)
+0007: 00      -   relocations (h.byte)
+0008: 20      -   paragraphs in header (l.byte)
+0009: 00      -   paragraphs in header (h.byte)
+000A: 00      -   minimum memory (l.byte)
+000B: 00      -   minimum memory (h.byte)
+000C: FF      -   maximum memory (l.byte)
+000D: FF      -   maximum memory (h.byte)
+000E: 00      -   SS - stack segment (l.byte)
+000F: 00      -   SS - stack segment (h.byte)
+0010: 00      -   SP - stack pointer (l.byte)
+0011: 01      -   SP - stack pointer (h.byte)
+0012: B8      -   check sum (l.byte)
+0013: 6C      -   check sum (h.byte)
+0014: 00      -   IP - instruction pointer (l.byte)
+0015: 00      -   IP - instruction pointer (h.byte)
+0016: 12      -   CS - code segment (l.byte)
+0017: 00      -   CS - code segment (h.byte)
+0018: 1E      -   relocation table adress (l.byte)
+0019: 00      -   relocation table adress (h.byte)
+001A: 00      -   overlay number (l.byte)
+001B: 00      -   overlay number (h.byte)
+001C: 01      -   signature (l.byte)
+001D: 00      -   signature (h.byte)
+001E: 01      -   relocation table - offset inside segment (l.byte)
+001F: 00      -   relocation table - offset inside segment (h.byte)
+0020: 12      -   relocation table - segment anchor (l.byte)
+0021: 00      -   relocation table - segment anchor (h.byte)
+0022 to 01FF  -   reserved relocation area  (00) 
+
+
+
+
+===================================================================================================

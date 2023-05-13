@@ -1,0 +1,29 @@
+< THE SYMBOL TABLE >  lab7.exe_  --  emu8086 assembler version: 4.08 
+===================================================================================================
+Name                     	Offset    	Size      	Type      	Segment   
+===================================================================================================
+STACK                    	00000     	-5        	SEGMENT   	(ITSELF)  
+DATA                     	00010     	-5        	SEGMENT   	(ITSELF)  
+CURRENT_ROW              	00000     	1         	VAR       	data      
+CURRENT_COL              	00001     	1         	VAR       	data      
+CHAR_INPUT               	00002     	1         	VAR       	data      
+OUTPUT_CHAR              	00003     	1         	VAR       	data      
+STOP_MSG                 	00004     	1         	VAR       	data      
+CODE                     	00012     	-5        	SEGMENT   	(ITSELF)  
+START                    	00000     	-1        	LABEL     	code      
+LOOP                     	0000F     	-1        	LABEL     	code      
+KEYBOARD_HANDLER         	00027     	-1        	NEAR      	code      
+RETURN                   	00053     	-1        	LABEL     	code      
+UP                       	0005C     	-1        	LABEL     	code      
+UP_DELAY_LOOP            	00075     	-1        	LABEL     	code      
+DOWN                     	0007A     	-1        	LABEL     	code      
+DOWN_DELAY_LOOP          	00093     	-1        	LABEL     	code      
+LEFT                     	00098     	-1        	LABEL     	code      
+LEFT_DELAY_LOOP          	000B1     	-1        	LABEL     	code      
+RIGHT                    	000B6     	-1        	LABEL     	code      
+RIGHT_DELAY_LOOP         	000CF     	-1        	LABEL     	code      
+EXIT_PROGRAM             	000D5     	-1        	LABEL     	code      
+===================================================================================================
+[ 12.05.2023  --  11:10:30 ] 
+< END >
+ 

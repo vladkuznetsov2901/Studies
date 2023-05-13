@@ -1,0 +1,32 @@
+; napishitte progu dlya vichislenia chisla 3
+; a = 3 ^ n
+; a -16bitnoe celoe bez znaka
+; n - 8bitnoe bez znaka
+; n < 11 - izbegaem perepolnenya
+
+; 3 ^ 10 = 59049 (10) = EAA9 (16)
+
+org 100h
+
+mov ax,3 ; zanocim v ax 3^1 = 3
+mov bx,3 ; zanocim v bx basu stepeni
+mov cl,[n] ; zanocim stepen  (n = 10)
+dec cl     ; ubiraem (9) ibo 3 ^ 1 = 3 (a ^ 1 = a = 3)
+
+x:
+mul bx ; umnozhaem ax na bx (tekushee znachenie ba
+; bazi stepeni)
+loop x ; umenzhaem cshetik cl (poka cl > 0)
+
+mov [a], ax
+;mov ax, 4C00h
+;int 21h
+
+;---------
+a dw ? ; 16bitnoe chislo bez znaka
+n db 10 ; 8bitnoe chislo bez znaka
+
+
+
+
+; [SOURCE]: C:\Users\vlado\Downloads\Telegram Desktop\модуль 2\лаба 4\zad2.asm

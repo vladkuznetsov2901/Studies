@@ -1,0 +1,18 @@
+< THE SYMBOL TABLE >  zad3.com_  --  emu8086 IDE version: 4.08 
+===================================================================================================
+Name                     	Offset    	Size      	Type      	Segment   
+===================================================================================================
+_0                       	00000     	-1        	(UNDEFINED)	(UNDEFINED)
+_1                       	00000     	-1        	(UNDEFINED)	(UNDEFINED)
+_2                       	00000     	-1        	(UNDEFINED)	(UNDEFINED)
+_3                       	00000     	-1        	(UNDEFINED)	(UNDEFINED)
+_4                       	00000     	-1        	(UNDEFINED)	(UNDEFINED)
+a                        	00135     	1         	VAR       	(GLOBAL)  
+b                        	00136     	1         	VAR       	(GLOBAL)  
+more                     	00137     	4         	VAR       	(GLOBAL)  
+less                     	0013B     	4         	VAR       	(GLOBAL)  
+equal                    	0013F     	4         	VAR       	(GLOBAL)  
+===================================================================================================
+[ 12.05.2023  --  12:29:04 ] 
+< END >
+ 

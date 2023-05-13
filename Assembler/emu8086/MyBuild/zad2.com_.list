@@ -1,0 +1,47 @@
+EMU8086 GENERATED LISTING. MACHINE CODE <- SOURCE.
+ 
+zad2.com_ -- emu8086 assembler version: 4.08  
+ 
+[ 12.05.2023  --  12:22:10 ] 
+ 
+===================================================================================================
+[LINE]     LOC: MACHINE CODE                          SOURCE
+===================================================================================================
+ 
+[   1]        :                                       ; napishitte progu dlya vichislenia chisla 3
+[   2]        :                                       ; a = 3 ^ n
+[   3]        :                                       ; a -16bitnoe celoe bez znaka
+[   4]        :                                       ; n - 8bitnoe bez znaka
+[   5]        :                                       ; n < 11 - izbegaem perepolnenya
+[   6]        :                                       
+[   7]        :                                       ; 3 ^ 10 = 59049 (10) = EAA9 (16)
+[   8]        :                                       
+[   9]        :                                       org 100h
+[  10]        :                                       
+[  11]    0100: B8 03 00                              mov ax,3 ; zanocim v ax 3^1 = 3
+[  12]    0103: BB 03 00                              mov bx,3 ; zanocim v bx basu stepeni
+[  13]    0106: 8A 0E 15 01                           mov cl,[n] ; zanocim stepen  (n = 10)
+[  14]    010A: FE C9                                 dec cl     ; ubiraem (9) ibo 3 ^ 1 = 3 (a ^ 1 = a = 3)
+[  15]        :                                       
+[  16]    010C:                                       x:
+[  17]    010C: F7 E3                                 mul bx ; umnozhaem ax na bx (tekushee znachenie ba
+[  18]        :                                       ; bazi stepeni)
+[  19]    010E: E2 FC                                 loop x ; umenzhaem cshetik cl (poka cl > 0)
+[  20]        :                                       
+[  21]    0110: A3 13 01                              mov [a], ax
+[  22]        :                                       ;mov ax, 4C00h
+[  23]        :                                       ;int 21h
+[  24]        :                                       
+[  25]        :                                       ;---------
+[  26]    0113: 00 00                                 a dw ? ; 16bitnoe chislo bez znaka
+[  27]    0115: 0A                                    n db 10 ; 8bitnoe chislo bez znaka
+[  28]        :                                       
+[  29]        :                                       
+ 
+===================================================================================================
+ 
+
+
+
+
+===================================================================================================

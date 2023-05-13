@@ -1,0 +1,62 @@
+                                                ; programma dlya sravneniya 2 peremennih a i b
+                                                ; a < b a > b a = b - vivod v DOS 
+                                                
+                                                use16
+                                                org 100h
+00000000: EB 00                                 jmp start ; bezzuslovnii perehod
+                                                
+                                                start:
+00000002: 8A 26 35 01                               mov ah,[a]
+00000006: A0 36 01                                  mov al,[b]
+                                                
+00000009: 38 C4                                     cmp ah,al ; cravnenie chisel
+0000000B: 7F 04                                     jg a_more_b ; esli bolshe a>b
+0000000D: 7C 0B                                     jl a_less_b ; esli menshe a<b
+0000000F: 74 12                                     jz a_equal_b ; esli ravno a = b
+                                                    
+                                                a_more_b:
+00000011: B4 09                                     mov ah,09  ; vivod stroki
+00000013: BA 37 01                                  mov dx,more 
+00000016: CD 21                                     int 21h    ; prerivanie
+00000018: EB 12                                     jmp exit ; bezzuslovnii perehod
+                                                
+                                                a_less_b:
+0000001A: B4 09                                     mov ah,09
+0000001C: BA 3B 01                                  mov dx,less ; vivod stroki
+0000001F: CD 21                                     int 21h
+00000021: EB 09                                     jmp exit ; bezzuslovnii perehod
+                                                    
+                                                a_equal_b:
+00000023: B4 09                                     mov ah,09
+00000025: BA 3F 01                                  mov dx,equal ; vivod stroki
+00000028: CD 21                                     int 21h
+0000002A: EB 00                                     jmp exit  ; bezzuslovnii perehod
+                                                    
+                                                exit:
+0000002C: B4 08                                 mov ah,08h
+0000002E: CD 21                                 int 21h
+00000030: B8 00 4C                              mov ax,4C00h
+00000033: CD 21                                 int 21h
+                                                
+                                                ;-----------------------
+00000035: 3C                                    a db 60
+00000036: 46                                    b db 70
+                                                
+                                                ;a db -55
+                                                ;b db 38 
+                                                
+                                                ;a db 50
+                                                ;a db 50
+                                                
+00000037: 61 3E 62 24                           more dd 'a>b$'
+0000003B: 61 3C 62 24                           less dd 'a<b$'
+0000003F: 61 3D 62 24                           equal dd 'a=b$'
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                ; [SOURCE]: C:\Users\vlado\Downloads\Telegram Desktop\модуль 2\лаба 5\zad3.asm
+                                                
+                                                
